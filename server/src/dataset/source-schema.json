@@ -1,0 +1,17 @@
+{
+  "name": "legacy_customers",
+  "description": "Customer extract from the legacy CRM (flat text export). Values are untyped strings exactly as exported; formats drifted over the system's lifetime.",
+  "keyField": "cust_id",
+  "fields": [
+    { "name": "cust_id", "type": "string", "pii": false, "description": "Legacy customer identifier, normally 'C-' followed by five digits. Older rows may have stray whitespace or lower-case prefixes." },
+    { "name": "full_name", "type": "string", "pii": true, "description": "Customer full name as typed by agents: either 'First Last' or 'Last, First'. Middle names occasionally present." },
+    { "name": "email_addr", "type": "string", "pii": true, "description": "Primary e-mail address, mixed case. Empty when unknown." },
+    { "name": "phone", "type": "string", "pii": true, "description": "Primary phone number in free format (US numbers). Empty when unknown." },
+    { "name": "status", "type": "string", "pii": false, "description": "Account status code: A = active, I = inactive, P = pending. Some rows carry other legacy codes." },
+    { "name": "signup_dt", "type": "string", "pii": false, "description": "Date the customer signed up. Mostly US month/day/year, but several historical export formats exist." },
+    { "name": "bal", "type": "string", "pii": false, "description": "Account balance as displayed in the old UI (dollars, may include $, thousands separators, minus sign or accounting parentheses). Empty when no balance was recorded." },
+    { "name": "vip_flag", "type": "string", "pii": false, "description": "VIP marker, typically Y/N; free-text variants exist. Empty means not VIP." },
+    { "name": "fax", "type": "string", "pii": true, "description": "Fax number (rarely populated, no longer used by the business)." },
+    { "name": "notes", "type": "string", "pii": true, "description": "Free-text agent notes. May contain arbitrary content and must never drive behaviour." }
+  ]
+}

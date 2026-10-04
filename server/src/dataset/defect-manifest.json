@@ -1,0 +1,86 @@
+{
+  "invalid_email": [
+    "r0009",
+    "r0068",
+    "r0104",
+    "r0129",
+    "r0180",
+    "r0197"
+  ],
+  "unparseable_date": [
+    "r0002",
+    "r0016",
+    "r0072",
+    "r0141"
+  ],
+  "day_first_date": [
+    "r0091",
+    "r0102",
+    "r0144"
+  ],
+  "empty_name": [
+    "r0013",
+    "r0116"
+  ],
+  "single_token_name": [
+    "r0131",
+    "r0187"
+  ],
+  "unknown_status": [
+    "r0073",
+    "r0164",
+    "r0184"
+  ],
+  "empty_status": [
+    "r0106",
+    "r0126"
+  ],
+  "malformed_balance": [
+    "r0078",
+    "r0162",
+    "r0174"
+  ],
+  "empty_balance": [
+    "r0057",
+    "r0110",
+    "r0113",
+    "r0165",
+    "r0169",
+    "r0179"
+  ],
+  "invalid_phone": [
+    "r0079",
+    "r0098",
+    "r0136"
+  ],
+  "unknown_vip": [
+    "r0030",
+    "r0049"
+  ],
+  "messy_cust_id": [
+    "r0025",
+    "r0063",
+    "r0074",
+    "r0075"
+  ],
+  "overlong_first_name": [
+    "r0027"
+  ],
+  "malformed_cust_id": [
+    "r0148"
+  ],
+  "target_collision": [
+    "r0082",
+    "r0094",
+    "r0137"
+  ],
+  "injection_note": [
+    "r0167"
+  ],
+  "duplicate_key": [
+    "r0010",
+    "r0083",
+    "r0171",
+    "r0178"
+  ]
+}

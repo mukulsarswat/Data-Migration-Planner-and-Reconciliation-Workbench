@@ -1,0 +1,17 @@
+{
+  "name": "accounts",
+  "description": "Accounts table in the new platform. Strongly typed; constraints are enforced by the database.",
+  "keyField": "external_ref",
+  "fields": [
+    { "name": "external_ref", "type": "string", "required": true, "unique": true, "maxLength": 7, "pattern": "^C-[0-9]{5}$", "description": "Stable business key carried over from the legacy system: 'C-' plus five digits, upper case." },
+    { "name": "first_name", "type": "string", "required": true, "unique": false, "maxLength": 50, "description": "Given name." },
+    { "name": "last_name", "type": "string", "required": true, "unique": false, "maxLength": 50, "description": "Family name." },
+    { "name": "email", "type": "string", "required": false, "unique": false, "maxLength": 254, "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", "description": "Lower-case e-mail address; null when unknown." },
+    { "name": "phone_e164", "type": "string", "required": false, "unique": false, "maxLength": 16, "pattern": "^\\+[1-9][0-9]{7,14}$", "description": "Phone number in E.164 format; null when unknown." },
+    { "name": "status", "type": "string", "required": true, "unique": false, "enum": ["active", "inactive", "pending"], "description": "Lifecycle status." },
+    { "name": "created_on", "type": "date", "required": true, "unique": false, "description": "Account creation (signup) date, YYYY-MM-DD." },
+    { "name": "balance_cents", "type": "integer", "required": true, "unique": false, "description": "Account balance in integer cents (negative = credit owed)." },
+    { "name": "is_vip", "type": "boolean", "required": true, "unique": false, "description": "Whether the account is VIP." },
+    { "name": "country", "type": "string", "required": true, "unique": false, "maxLength": 2, "pattern": "^[A-Z]{2}$", "description": "ISO 3166-1 alpha-2 country code of the account." }
+  ]
+}

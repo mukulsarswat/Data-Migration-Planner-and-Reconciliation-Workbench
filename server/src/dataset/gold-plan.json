@@ -1,0 +1,268 @@
+{
+  "mappings": [
+    {
+      "target": "external_ref",
+      "sources": [
+        "cust_id"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "uppercase",
+          "params": {}
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Legacy id is the business key; normalise whitespace and case."
+    },
+    {
+      "target": "first_name",
+      "sources": [
+        "full_name"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "split_full_name",
+          "params": {
+            "part": "first"
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Split \"First Last\" / \"Last, First\"."
+    },
+    {
+      "target": "last_name",
+      "sources": [
+        "full_name"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "split_full_name",
+          "params": {
+            "part": "last"
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Split \"First Last\" / \"Last, First\"."
+    },
+    {
+      "target": "email",
+      "sources": [
+        "email_addr"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "null_if_empty",
+          "params": {}
+        },
+        {
+          "op": "lowercase",
+          "params": {}
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Nullable; target requires lower case."
+    },
+    {
+      "target": "phone_e164",
+      "sources": [
+        "phone"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "null_if_empty",
+          "params": {}
+        },
+        {
+          "op": "normalize_phone",
+          "params": {
+            "default_country": "US"
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "US numbers to E.164."
+    },
+    {
+      "target": "status",
+      "sources": [
+        "status"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "uppercase",
+          "params": {}
+        },
+        {
+          "op": "map_values",
+          "params": {
+            "pairs": [
+              {
+                "from": "A",
+                "to": "active"
+              },
+              {
+                "from": "I",
+                "to": "inactive"
+              },
+              {
+                "from": "P",
+                "to": "pending"
+              }
+            ],
+            "fallback": null
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Documented codes only; unknown codes are quarantined."
+    },
+    {
+      "target": "created_on",
+      "sources": [
+        "signup_dt"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "parse_date",
+          "params": {
+            "formats": [
+              "MM/dd/yyyy",
+              "yyyy-MM-dd",
+              "dd-MMM-yyyy"
+            ]
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "US slash dates; day-first rows are quarantined."
+    },
+    {
+      "target": "balance_cents",
+      "sources": [
+        "bal"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "null_if_empty",
+          "params": {}
+        },
+        {
+          "op": "default",
+          "params": {
+            "value": "0"
+          }
+        },
+        {
+          "op": "parse_currency_to_cents",
+          "params": {}
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Empty balance means zero."
+    },
+    {
+      "target": "is_vip",
+      "sources": [
+        "vip_flag"
+      ],
+      "steps": [
+        {
+          "op": "trim",
+          "params": {}
+        },
+        {
+          "op": "to_boolean",
+          "params": {
+            "true_values": [
+              "Y",
+              "YES",
+              "TRUE",
+              "1"
+            ],
+            "false_values": [
+              "N",
+              "NO",
+              "FALSE",
+              "0",
+              ""
+            ]
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "Empty means not VIP."
+    },
+    {
+      "target": "country",
+      "sources": [],
+      "steps": [
+        {
+          "op": "default",
+          "params": {
+            "value": "US"
+          }
+        }
+      ],
+      "origin": "human",
+      "confidence": "high",
+      "rationale": "All legacy customers are US accounts (confirmed with the business)."
+    }
+  ],
+  "ignored": [
+    {
+      "source": "fax",
+      "reason": "No target field; fax is no longer used."
+    },
+    {
+      "source": "notes",
+      "reason": "Free text with PII; not part of the accounts model."
+    }
+  ],
+  "clarifications": [],
+  "risks": [],
+  "summary": "Gold reference plan used for evaluation and expected-number documentation.",
+  "errorBudgetPct": 30
+}

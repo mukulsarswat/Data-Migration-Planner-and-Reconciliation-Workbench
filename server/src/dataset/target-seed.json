@@ -1,0 +1,7 @@
+[
+  {"external_ref":"C-90001","first_name":"Grace","last_name":"Hopper","email":"grace.hopper@example.com","phone_e164":"+12025550101","status":"active","created_on":"2010-05-04","balance_cents":0,"is_vip":true,"country":"US"},
+  {"external_ref":"C-90002","first_name":"Alan","last_name":"Turing","email":"alan.turing@example.co.uk","phone_e164":null,"status":"inactive","created_on":"2011-06-23","balance_cents":1250,"is_vip":false,"country":"GB"},
+  {"external_ref":"C-90003","first_name":"Ada","last_name":"Lovelace","email":null,"phone_e164":"+14155550199","status":"active","created_on":"2012-12-10","balance_cents":-4500,"is_vip":true,"country":"GB"},
+  {"external_ref":"C-90004","first_name":"Katherine","last_name":"Johnson","email":"kj@example.com","phone_e164":"+17575550123","status":"pending","created_on":"2015-08-26","balance_cents":99900,"is_vip":false,"country":"US"},
+  {"external_ref":"C-90005","first_name":"Edsger","last_name":"Dijkstra","email":"ewd@example.nl","phone_e164":null,"status":"inactive","created_on":"2014-05-11","balance_cents":31000,"is_vip":false,"country":"NL"}
+]
