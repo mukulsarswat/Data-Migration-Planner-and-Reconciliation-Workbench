@@ -11,4 +11,5 @@ data/
 test-results/
 playwright-report/
 coverage/
+.vitest/
 .DS_Store
