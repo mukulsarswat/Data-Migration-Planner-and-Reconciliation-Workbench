@@ -48,43 +48,53 @@ export default function App() {
 function Shell() {
   const nav = useNav();
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <div>
-            <h1 className="text-lg font-semibold">Migration Workbench</h1>
-            <p className="text-xs text-slate-500">legacy_customers → accounts · AI-assisted planning, human approval, deterministic execution</p>
+    <div className="workbench-shell min-h-screen text-slate-900">
+      <header className="workbench-header">
+        <div className="workbench-header-inner mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+          <div className="brand-lockup">
+            <span className="brand-mark" aria-hidden="true">MW</span>
+            <div>
+              <p className="brand-eyebrow">DATA OPERATIONS / MIGRATION 01</p>
+              <h1 className="brand-title">Migration Workbench</h1>
+              <p className="brand-description">legacy_customers <span aria-hidden="true">→</span> accounts <span className="brand-divider">/</span> AI-assisted planning, human-approved execution</p>
+            </div>
           </div>
-          <label className="flex items-center gap-2 text-xs text-slate-600">
+          <label className="reviewer-field flex items-center gap-2 text-xs">
             Reviewer
             <input
               value={nav.reviewer}
               onChange={(e) => nav.setReviewer(e.target.value)}
               placeholder="your name"
               maxLength={60}
-              className="w-40 rounded-md border border-slate-300 px-2 py-1 text-sm"
+              className="reviewer-input w-40 rounded-md border px-3 py-2 text-sm"
             />
           </label>
         </div>
         <StatusBar />
-        <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4" aria-label="Workflow steps">
+        <nav className="workbench-nav-desktop mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4" aria-label="Workflow steps">
           {STEPS.map((s, i) => (
             <button
               key={s.id}
               onClick={() => nav.go(s.id)}
               aria-current={nav.step === s.id ? 'page' : undefined}
               className={cx(
-                'whitespace-nowrap border-b-2 px-3 py-2 text-sm',
-                nav.step === s.id ? 'border-indigo-600 font-semibold text-indigo-700' : 'border-transparent text-slate-600 hover:text-slate-900',
+                'workbench-step whitespace-nowrap border-b-2 px-3 py-3 text-sm',
+                nav.step === s.id ? 'workbench-step-active font-semibold' : 'border-transparent text-slate-600 hover:text-slate-900',
               )}
             >
-              {i < 6 ? `${i + 1}. ` : ''}
-              {s.label}
+              {i < 6 && <span className="step-number">{i + 1}</span>}
+              <span>{s.label}</span>
             </button>
           ))}
         </nav>
+        <div className="workbench-nav-mobile">
+          <label htmlFor="workflow-step">Workflow</label>
+          <select id="workflow-step" value={nav.step} onChange={(e) => nav.go(e.target.value as StepId)}>
+            {STEPS.map((s, i) => <option key={s.id} value={s.id}>Step {i + 1} · {s.label}</option>)}
+          </select>
+        </div>
       </header>
-      <main className="mx-auto max-w-7xl px-4 py-5">
+      <main className="workbench-main mx-auto max-w-7xl px-4 py-6">
         <ErrorBoundary key={nav.step}>
           <Suspense fallback={<Skeleton lines={6} />}>{VIEWS[nav.step]()}</Suspense>
         </ErrorBoundary>
